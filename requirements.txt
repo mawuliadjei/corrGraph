@@ -1,0 +1,8 @@
+pandas
+networkx
+numpy
+plotly
+pyvis
+scikit-learn
+seaborn
+nbformat
