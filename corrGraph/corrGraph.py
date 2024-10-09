@@ -25,7 +25,7 @@ class Config:
         width=800,
         height=800
     )
-    DEFAULT_NODE_SIZE = 10
+    DEFAULT_NODE_SIZE = 0.5
     DEFAULT_EDGE_WIDTH = 0.01
     NODE_SIZE_SCALE = 20
     EDGE_WIDTH_SCALE = 1
@@ -199,3 +199,40 @@ class CorrGraph:
                 net.add_edge(edge[0], edge[1], title=edge_title, color=edge_color)
 
         net.show('correlation_graph.html')
+
+    def visualize_graph(self, visualization_type: str = 'plotly', node_weight_is_size: bool = True, edge_weight_is_size: bool = True, use_as_notebook: bool = True) -> None:
+        """
+        Visualize the graph using either Plotly or PyVis based on the visualization_type argument.
+
+        :param visualization_type: A string to decide which visualization library to use ('plotly' or 'pyvis').
+        :param node_weight_is_size: A boolean to decide if node weights should determine node sizes.
+        :param edge_weight_is_size: A boolean to decide if edge weights should determine edge widths.
+        :param use_as_notebook: A boolean to decide if the visualization should be displayed in a Jupyter notebook (only for PyVis).
+        """
+        if visualization_type == 'plotly':
+            self.visualize_graph_with_plotly(node_weight_is_size, edge_weight_is_size)
+        elif visualization_type == 'pyvis':
+            self.visualize_graph_with_pyvis(node_weight_is_size, edge_weight_is_size, use_as_notebook)
+        else:
+            raise ValueError("Invalid visualization_type. Choose either 'plotly' or 'pyvis'.")
+        
+    def get_centrality(self, centrality_type: str = 'degree') -> Dict[str, float]:
+        """
+        Calculate and return the centrality of each node in the graph based on the specified centrality type.
+
+        :param centrality_type: A string to specify the type of centrality measure ('degree', 'betweenness', 'closeness', 'eigenvector').
+        :return: A dictionary where keys are node names and values are their centrality measures.
+        :raises ValueError: If an invalid centrality type is provided.
+        """
+        if centrality_type == 'degree':
+            centrality = nx.degree_centrality(self.graph)
+        elif centrality_type == 'betweenness':
+            centrality = nx.betweenness_centrality(self.graph)
+        elif centrality_type == 'closeness':
+            centrality = nx.closeness_centrality(self.graph)
+        elif centrality_type == 'eigenvector':
+            centrality = nx.eigenvector_centrality(self.graph)
+        else:
+            raise ValueError("Invalid centrality_type. Choose from 'degree', 'betweenness', 'closeness', or 'eigenvector'.")
+        
+        return centrality
