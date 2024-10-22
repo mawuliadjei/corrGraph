@@ -47,7 +47,7 @@ class TestCorrGraph(unittest.TestCase):
 
     def test_visualize_graph_with_pyvis(self):
         try:
-            self.corr_graph.visualize_graph_with_pyvis(use_as_notebook=False)
+            self.corr_graph.visualize_graph_with_pyvis(use_as_notebook=False, output_path='tests/test_output.html')
         except Exception as e:
             self.fail(f"visualize_graph_with_pyvis() raised {e.__class__.__name__} unexpectedly!")
 

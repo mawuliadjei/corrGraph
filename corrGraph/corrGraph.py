@@ -167,13 +167,14 @@ class CorrGraph:
 
         fig.show()
 
-    def visualize_graph_with_pyvis(self, node_weight_is_size: bool = True, edge_weight_is_size: bool = True, use_as_notebook = True) -> None:
+    def visualize_graph_with_pyvis(self, node_weight_is_size: bool = True, edge_weight_is_size: bool = True, use_as_notebook: bool = True, output_path: str = 'correlation_graph.html') -> None:
         """
         Visualize the graph using PyVis.
 
         :param node_weight_is_size: A boolean to decide if node weights should determine node sizes.
         :param edge_weight_is_size: A boolean to decide if edge weights should determine edge widths.
         :param use_as_notebook: A boolean to decide if the visualization should be displayed in a Jupyter notebook.
+        :param output_path: A string to specify the file path to save the visualization.
         """
         net = Network(height=Config.FIGURE_SIZE, width=Config.FIGURE_SIZE, notebook=use_as_notebook)
 
@@ -198,7 +199,7 @@ class CorrGraph:
             else:
                 net.add_edge(edge[0], edge[1], title=edge_title, color=edge_color)
 
-        net.show('correlation_graph.html')
+        net.show(output_path)
 
     def visualize_graph(self, visualization_type: str = 'plotly', node_weight_is_size: bool = True, edge_weight_is_size: bool = True, use_as_notebook: bool = True) -> None:
         """

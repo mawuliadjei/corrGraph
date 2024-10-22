@@ -5,7 +5,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='corrGraph',
-    version='0.1.0a2',
+    version='0.1.0',
     author='Mawuli Adjei',
     author_email='mawuliadjei@gmail.com',
     description='A python module built using graph theory to analyse how attributes/features in a dataset correlate with each other',
